@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Ficha de Treino</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>Gerador de Ficha de Treino</h1>
+
+<div class="formulario">
+
+<input id="nome" placeholder="Nome do aluno">
+<input id="objetivo" placeholder="Objetivo">
+
+<h2>Treinos</h2>
+
+<div id="dias-container"></div>
+
+<button onclick="adicionarDia()">+ Adicionar dia</button>
+
+<br><br>
+
+<button onclick="gerarFicha()">Gerar Ficha</button>
+
+<button onclick="gerarPDF()">Gerar PDF</button>
+
+</div>
+
+<hr>
+
+<div id="ficha"></div>
+
+</div>
+
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>
