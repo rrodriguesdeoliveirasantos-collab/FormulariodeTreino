@@ -139,8 +139,42 @@ function limparFormulario(){
 
 }
 
+function salvarDados(){
+
+const nome = document.getElementById("nome").value
+const objetivo = document.getElementById("objetivo").value
+
+localStorage.setItem("nome", nome)
+localStorage.setItem("objetivo", objetivo)
+
+}
+
+
+document
+.getElementById("nome")
+.addEventListener("input", salvarDados)
+
+document
+.getElementById("objetivo")
+.addEventListener("input", salvarDados)
+
+
+function carregarDados(){
+const nome = localStorage.getItem("nome")
+const objetivo = localStorage.getItem("objetivo")
+
+if(nome){
+     document.getElementById("nome").value = nome
+}
+if(objetivo){
+     document.getElementById("objetivo").value = objetivo
+}
+
+}
 
 document.addEventListener("DOMContentLoaded", function(){
+
+carregarDados()
 
 document
 .getElementById("gerarFicha")
