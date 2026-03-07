@@ -23,7 +23,8 @@ bloco.innerHTML = `
 
 <input class="observacao" placeholder="Observação (opcional)">
 
-<button class="remover-dia" onclick="removerDia(this)">❌ Remover dia</button>
+<button class="remover-dia" onclick="removerDia(this)">
+❌ Remover dia</button>
 `
 
 container.appendChild(bloco)
@@ -33,9 +34,26 @@ container.appendChild(bloco)
 function gerarFicha(){
 
 const nome = document.getElementById("nome").value
+
+if (nome.trim() === ""){
+alert("Por favor, preencha o nome do aluno")
+return
+}
+
 const objetivo = document.getElementById("objetivo").value
 
+if (objetivo.trim() === ""){
+alert("Por favor, preencha o objetivo do aluno")
+return
+}
+
+
 const dias = document.querySelectorAll(".dia")
+
+if(dias.length === 0){
+alert("Adicione pelo menos um dia de treino")
+return
+}
 
 let html = `
 <h1>Ficha de Treino</h1>
@@ -46,43 +64,81 @@ let html = `
 dias.forEach((dia,index)=>{
 
 const titulo = dia.querySelector(".titulo-dia").value
-const exercicios = dia.querySelector(".exercicios").value.split("\n")
+const exercicios = dia.querySelector(".exercicios").value
 const obs = dia.querySelector(".observacao").value
 
-html += `<div class="card">`
-html += `<h2>Dia ${index+1} - ${titulo}</h2>`
+const lista = exercicios.split("\n")
+const filtrados = lista.filter(ex => ex.trim() !== "")
+const itens = filtrados.map(ex => `<li>${ex}</li>`)
+const htmlExercicios = `<ul>${itens.join("")}</ul>`
 
-if(obs){
+html += `
+<div class="card">
+<h2>Dia ${index+1} - ${titulo}</h2>
+${htmlExercicios}
+`
+
+if(obs.trim() !== ""){
 html += `<p class="obs">${obs}</p>`
 }
 
-html += "<ul>"
-
-exercicios.forEach(ex=>{
-if(ex.trim() !== ""){
-html += `<li>${ex}</li>`
-}
-})
-
-html += "</ul></div>"
+html += `</div>`
 
 })
 
 document.getElementById("ficha").innerHTML = html
 
 }
-function removerDia(botao){
 
-const dia = botao.parentElement
-
-dia.remove()
-
-contadorDias--
-
-}
 function gerarPDF(){
 window.print()
 }
+
+function attNunDias(){
+
+const dias = document.querySelectorAll(".dia")
+dias.forEach((dia,index)=>{
+const titulo = dia.querySelector("h3")
+titulo.textContent = `Dia ${index+1}`
+})
+
+contadorDias = dias.length
+
+}
+
+
+function removerDia(botao){
+
+const confirmar = confirm("Tem certeza que deseja remover este dia?")
+
+if(confirmar){
+botao.parentElement.remove()
+
+attNunDias()
+ 
+}
+
+}
+
+function limparFormulario(){
+    const confirmar = confirm("Tem certeza que deseja limpar o formulário?")
+
+    if(!confirmar) return
+  
+    document.getElementById("nome").value = ""
+    document.getElementById("objetivo").value = ""
+
+    
+    document.getElementById("dias-container").innerHTML = ""
+    
+    
+    document.getElementById("ficha").innerHTML = ""
+
+    contadorDias = 0
+
+
+}
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -97,5 +153,10 @@ document
 document
 .getElementById("gerarPDF")
 .addEventListener("click", gerarPDF)
+
+
+document
+.getElementById("limparFormulario")
+.addEventListener("click", limparFormulario)
 
 })
