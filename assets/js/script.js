@@ -1,21 +1,23 @@
 let contadorDias = 0
 
 const bibliotecaExercicios = ["Agachamento",
-"Leg Press",
-"Cadeira Extensora",
-"Cadeira Flexora",
-"Elevação Pélvica",
-"Afundo",
-"Supino",
-"Remada",
-"Puxada na Frente",
-"Elevação Lateral",
-"Rosca Bíceps",
-"Tríceps Polia",
-"Prancha",
-"Abdominal"]
-
+     "Leg Press",
+     "Cadeira Extensora",
+     "Cadeira Flexora",
+     "Elevação Pélvica",
+     "Afundo",
+     "Supino",
+     "Remada",
+     "Puxada na Frente",
+     "Elevação Lateral",
+     "Rosca Bíceps",
+     "Tríceps Polia",
+     "Prancha",
+     "Abdominal"]
+// Função para adicionar um novo dia de treino ao formulário
 function adicionarDia() {
+
+     console.log("Adicionando dia...")
 
      if (contadorDias >= 6) {
           alert("Máximo de 6 dias de treino")
@@ -48,7 +50,7 @@ function adicionarDia() {
 
      container.appendChild(bloco)
 
-
+     //Preenche o select com os exercícios da biblioteca
      const select = bloco.querySelector(".select-exercicio")
 
      bibliotecaExercicios.forEach(exercicio => {
@@ -61,14 +63,14 @@ function adicionarDia() {
 
           select.appendChild(option)
      })
-
+     // Evento para adicionar o exercício selecionado ao textarea e resetar o select
      select.addEventListener("change", function () {
 
           if (this.value === "") return
 
-               const textarea = bloco.querySelector(".exercicios")
-               textarea.value += this.value + "\n"
-               this.value = ""          
+          const textarea = bloco.querySelector(".exercicios")
+          textarea.value += this.value + "\n"
+          this.value = ""
 
      })
      bloco.querySelector(".titulo-dia").addEventListener("input", salvarFicha)
@@ -77,7 +79,7 @@ function adicionarDia() {
 
 
 }
-
+// Função para gerar a ficha de treino com base nos dados do formulário
 function gerarFicha() {
 
      const nome = document.getElementById("nome").value
@@ -93,20 +95,24 @@ function gerarFicha() {
           alert("Por favor, preencha o objetivo do aluno")
           return
      }
-
+     // Seleciona todos os dias de treino para montar a ficha
      const dias = document.querySelectorAll(".dia")
+
+     const totalDias = dias.length
 
      if (dias.length === 0) {
           alert("Adicione pelo menos um dia de treino")
           return
      }
-
+     // Monta o conteúdo HTML da ficha de treino
      let html = `
-<h1>Ficha de Treino</h1>
-<p><b>Aluno:</b> ${nome}</p>
-<p><b>Objetivo:</b> ${objetivo}</p>
-`
+     <h1>Ficha de Treino</h1>
 
+     <p><b>Aluno:</b> ${nome}</p>
+     <p><b>Objetivo:</b> ${objetivo}</p>
+     <p><b>Total de dias:</b> ${totalDias}</p>
+     `
+     // Percorre cada dia de treino para montar o conteúdo da ficha
      dias.forEach((dia, index) => {
 
           let titulo = dia.querySelector(".titulo-dia").value
@@ -141,14 +147,14 @@ ${htmlExercicios}
      document.getElementById("ficha").innerHTML = html
 
 }
-
+// Função para gerar o PDF da ficha de treino usando a biblioteca html2pdf
 function gerarPDF() {
 
      const elemento = document.getElementById("ficha")
 
      html2pdf().from(elemento).save()
 }
-
+// Função para atualizar os títulos dos dias e o contador após remoção de um dia
 function attNunDias() {
 
      const dias = document.querySelectorAll(".dia")
@@ -175,7 +181,7 @@ function removerDia(botao) {
 
 
 
-
+// Função para limpar o formulário e resetar o contador de dias
 function limparFormulario() {
      const confirmar = confirm("Tem certeza que deseja limpar o formulário?")
 
@@ -194,7 +200,7 @@ function limparFormulario() {
 
 
 }
-
+//Função para salvar os dados do nome e objetivo no localStorage
 function salvarDados() {
 
      const nome = document.getElementById("nome").value
@@ -206,15 +212,7 @@ function salvarDados() {
 }
 
 
-document
-     .getElementById("nome")
-     .addEventListener("input", salvarDados)
-
-document
-     .getElementById("objetivo")
-     .addEventListener("input", salvarDados)
-
-
+// Função para carregar os dados salvos do localStorage e preencher o formulário
 function carregarDados() {
      const nome = localStorage.getItem("nome")
      const objetivo = localStorage.getItem("objetivo")
@@ -228,7 +226,7 @@ function carregarDados() {
 
 }
 
-
+// Função para salvar os dados da ficha de treino no localStorage
 function salvarFicha() {
 
      const nome = document.getElementById("nome").value
@@ -270,7 +268,7 @@ function salvarFicha() {
 
 }
 
-
+// Função para carregar os dados de uma ficha salva e preencher o formulário
 function carregarFicha() {
 
      const dados = localStorage.getItem("diasTreino")
@@ -296,21 +294,21 @@ function carregarFicha() {
      })
 }
 
-
+// Função para listar as fichas salvas na tela
 function listarFichas() {
 
      const fichas = JSON.parse(localStorage.getItem("fichas")) || []
 
      const container = document.getElementById("lista-fichas")
-    
+
      container.innerHTML = ""
 
      fichas.forEach((ficha, index) => {
-    const div = document.createElement("div")
+          const div = document.createElement("div")
 
-    div.className = "ficha-salva"
-    
-    div.innerHTML = `
+          div.className = "ficha-salva"
+
+          div.innerHTML = `
     <b>${ficha.nome}</b> - ${ficha.objetivo}
     <button type="button" onclick="abrirFicha(${index})">
     Abrir</button>
@@ -320,12 +318,12 @@ function listarFichas() {
 
     `
 
-    container.appendChild(div)
- })
+          container.appendChild(div)
+     })
 
 }
 
-
+// Função para abrir uma ficha salva e preencher o formulário
 function abrirFicha(index) {
 
      const fichas = JSON.parse(localStorage.getItem("fichas"))
@@ -352,7 +350,7 @@ function abrirFicha(index) {
 
 }
 
-
+// Função para excluir uma ficha salva
 function excluirFicha(index) {
 
      const confirmar = confirm("Tem certeza que deseja excluir esta ficha?")
@@ -368,15 +366,11 @@ function excluirFicha(index) {
      listarFichas()
 }
 
-
+//Evento para carregar os dados salvos e configurar os botões ao carregar a página
 document.addEventListener("DOMContentLoaded", function () {
 
      carregarDados()
      listarFichas()
-
-     document
-          .getElementById("gerarFicha")
-          .addEventListener("click", gerarFicha)
 
      document
           .getElementById("adicionarDia")
@@ -391,6 +385,89 @@ document.addEventListener("DOMContentLoaded", function () {
           .getElementById("limparFormulario")
           .addEventListener("click", limparFormulario)
 
+     document
+          .getElementById("salvarFicha")
+          .addEventListener("click", salvarFicha)
+
+     document
+          .getElementById("nome")
+          .addEventListener("input", salvarDados)
+
+     document
+          .getElementById("objetivo")
+          .addEventListener("input", salvarDados)
+
+
+
+     //botão de instalação do PWA
+     const botaoInstalar = document.getElementById("instalarApp") || null
+
+     let deferredPrompt
+
+     window.addEventListener("beforeinstallprompt", (e) => {
+
+          e.preventDefault()
+
+          deferredPrompt = e
+
+          if (botaoInstalar) {
+               botaoInstalar.style.display = "block"
+          }
+
+     })
+
+
+     //Registro do Service Worker para PWA
+     if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register("./service-worker.js")
+               .then(registration => {
+                    console.log('Service Worker registered: ', registration);
+               })
+               .catch(error => {
+                    console.error('Service Worker registration failed: ', error);
+               });
+     }
+
+
+
+     if (botaoInstalar) {
+
+          botaoInstalar.addEventListener("click", async () => {
+
+               if (!deferredPrompt) return
+
+               deferredPrompt.prompt()
+
+               const { outcome } = await deferredPrompt.userChoice
+
+               console.log("Resultado:", outcome)
+
+               deferredPrompt = null
+
+          })
+
+     }
+
 })
-document.getElementById("salvarFicha")
-.addEventListener("click", salvarFicha)
+
+
+
+
+window.addEventListener("load", () => {
+
+     const splash = document.getElementById("splash-screen")
+     const app = document.getElementById("app")
+     if (!splash || !app) return
+
+     setTimeout(() => {
+
+          splash.style.opacity = "0"
+          app.style.opacity = "1"
+
+          setTimeout(() => {
+               splash.remove()
+          }, 600)
+
+     }, 1500)
+
+})
