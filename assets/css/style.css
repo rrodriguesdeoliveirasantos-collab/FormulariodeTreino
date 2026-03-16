@@ -7,6 +7,7 @@ body {
 
 /* fundo */
 body::before {
+  filter: blur(2px);
   content: "";
   position: fixed;
   top: 0;
@@ -36,25 +37,16 @@ body::before {
   resize: vertical;
 }
 
-.dia {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  padding: 90px;
-  width: 900px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
-}
-
 
 .app {
  opacity: 1;
- transition: opacity 0.8s;
+ transition: opacity 0.5s;
 }
 
 
 input,
 textarea {
-  width: 60%;
+  width: 40%;
   padding: 6px;
   margin-top: 8px;
   margin-bottom: 15px;
@@ -123,12 +115,13 @@ h2 {
 
 #splash-screen {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-
-  background: #00000000;
-
-
+  background-color: #000;
+ 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,7 +129,8 @@ h2 {
 
   z-index: 9999;
 
-  transition: opacity 0.5s;
+  transition: opacity 0.5s ease;
+
 }
 
 
@@ -153,6 +147,36 @@ h2 {
 }
 
 
+button.Excluir{
+  background: #e74c3c;
+  color:#fff
+}
+
+.lista-exercicios{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:10px;
+}
+
+.exercicio-item{
+display:flex;
+align-items:center;
+gap:10px;
+background:white;
+padding:8px;
+border-radius:6px;
+}
+
+.nome-exercicio{
+flex:1;
+font-weight:bold;
+}
+
+.series,
+.reps{
+width:60px;
+}
 
 
 @media print {
