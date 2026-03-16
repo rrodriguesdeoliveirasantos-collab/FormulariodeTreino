@@ -124,42 +124,168 @@ export function removerFicha(alunoIndex, fichaIndex) {
 }
 
 // Abrir ficha do aluno
+// assets/js/modules/storage.js
+
+// ... outras funções ...
+
 export function abrirFichaAluno(alunoIndex, fichaIndex) {
+    console.log("Abrindo ficha do aluno:", alunoIndex, fichaIndex); // Para debug
+    
+    // Pega alunos do localStorage
     const alunos = JSON.parse(localStorage.getItem("Alunos"));
-    const ficha = alunos[alunoIndex].fichas[fichaIndex];
+    
+    // Verificações de segurança
+    if (!alunos) {
+        console.error("Nenhum aluno encontrado no localStorage");
+        alert("Erro ao carregar ficha: dados não encontrados");
+        return;
+    }
+    
+    if (!alunos[alunoIndex]) {
+        console.error("Aluno não encontrado no índice:", alunoIndex);
+        alert("Erro ao carregar ficha: aluno não encontrado");
+        return;
+    }
+    
+    const aluno = alunos[alunoIndex];
+    
+    if (!aluno.fichas || !aluno.fichas[fichaIndex]) {
+        console.error("Ficha não encontrada no índice:", fichaIndex);
+        alert("Erro ao carregar ficha: ficha não encontrada");
+        return;
+    }
+    
+    const ficha = aluno.fichas[fichaIndex];
+    
+    console.log("Ficha carregada:", ficha); // Para debug
 
-    document.getElementById("nome").value = alunos[alunoIndex].nome;
-    document.getElementById("objetivo").value = ficha.objetivo;
-    document.getElementById("dias-container").innerHTML = "";
+    // Preenche dados básicos
+    const nomeInput = document.getElementById("nome");
+    const objetivoInput = document.getElementById("objetivo");
+    
+    if (nomeInput) nomeInput.value = aluno.nome || "";
+    if (objetivoInput) objetivoInput.value = ficha.objetivo || "";
+    
+    // Limpa o container de dias
+    const container = document.getElementById("dias-container");
+    if (container) {
+        container.innerHTML = "";
+    } else {
+        console.error("Container de dias não encontrado");
+        return;
+    }
+    
+    // Reseta o contador global
+    if (typeof window.contadorDiasUI !== 'undefined') {
+        window.contadorDiasUI = 0;
+    }
 
-    // Reset contador e recriar dias
-    window.contadorDiasUI = 0;
-    ficha.dias.forEach(dia => {
-        window.adicionarDia();
-        const dias = document.querySelectorAll(".dia");
-        const ultimo = dias[dias.length - 1];
+    // Verifica se existem dias na ficha
+    if (!ficha.dias || ficha.dias.length === 0) {
+        console.log("Ficha sem dias de treino");
+        window.mostrarTela("tela-editor");
+        return;
+    }
 
-        ultimo.querySelector(".titulo-dia").value = dia.titulo;
-        ultimo.querySelector(".observacao").value = dia.obs;
-
-        const lista = ultimo.querySelector(".lista-exercicios");
-        if (!dia.exercicios) return;
-
-        dia.exercicios.forEach(ex => {
-            const exercicio = document.createElement("div");
-            exercicio.className = "exercicio-item";
-            exercicio.innerHTML = `
-                <span class="nome-exercicio">${ex.nome}</span>
-                <input class="series" placeholder="Séries" value="${ex.series}">
-                <input class="reps" placeholder="Reps" value="${ex.reps}">
-                <button type="button" class="remover-exercicio">❌</button>
-            `;
-            lista.appendChild(exercicio);
-
-            exercicio.querySelector(".remover-exercicio")
-                .addEventListener("click", () => exercicio.remove());
+    // Função para aguardar o DOM atualizar
+    const aguardarDiaRenderizado = () => {
+        return new Promise(resolve => {
+            const checkExist = setInterval(() => {
+                const dias = document.querySelectorAll(".dia");
+                if (dias.length > 0) {
+                    clearInterval(checkExist);
+                    resolve(dias);
+                }
+            }, 100); // Verifica a cada 100ms
         });
+    };
+
+    // Processa cada dia de forma assíncrona
+    const processarDias = async () => {
+        for (let i = 0; i < ficha.dias.length; i++) {
+            const dia = ficha.dias[i];
+            
+            // Chama a função para adicionar um novo dia
+            if (typeof window.adicionarDia === 'function') {
+                window.adicionarDia();
+            } else {
+                console.error("Função adicionarDia não encontrada");
+                return;
+            }
+            
+            // Aguarda o dia ser renderizado
+            const dias = await aguardarDiaRenderizado();
+            const ultimo = dias[dias.length - 1];
+            
+            if (!ultimo) {
+                console.error("Dia não foi criado corretamente");
+                continue;
+            }
+
+            // Preenche o título do dia
+            const tituloInput = ultimo.querySelector(".titulo-dia");
+            if (tituloInput) {
+                tituloInput.value = dia.titulo || "Treino";
+            }
+
+            // Preenche a observação
+            const obsInput = ultimo.querySelector(".observacao");
+            if (obsInput) {
+                obsInput.value = dia.obs || "";
+            }
+
+            // Pega a lista de exercícios
+            const lista = ultimo.querySelector(".lista-exercicios");
+            if (!lista) {
+                console.error("Lista de exercícios não encontrada");
+                continue;
+            }
+
+            // Verifica se existem exercícios no dia
+            if (!dia.exercicios || dia.exercicios.length === 0) {
+                continue;
+            }
+
+            // Adiciona cada exercício
+            dia.exercicios.forEach(ex => {
+                if (!ex || !ex.nome) return;
+
+                const exercicio = document.createElement("div");
+                exercicio.className = "exercicio-item";
+                
+                exercicio.innerHTML = `
+                    <span class="nome-exercicio">${ex.nome}</span>
+                    <input class="series" placeholder="Séries" value="${ex.series || ''}">
+                    <input class="reps" placeholder="Reps" value="${ex.reps || ''}">
+                    <button type="button" class="remover-exercicio">❌</button>
+                `;
+
+                lista.appendChild(exercicio);
+
+                // Adiciona evento para remover o exercício
+                const removerBtn = exercicio.querySelector(".remover-exercicio");
+                if (removerBtn) {
+                    removerBtn.addEventListener("click", () => exercicio.remove());
+                }
+            });
+        }
+    };
+
+    // Executa o processamento dos dias
+    processarDias().then(() => {
+        // Mostra a tela de edição após processar todos os dias
+        if (typeof window.mostrarTela === 'function') {
+            window.mostrarTela("tela-editor");
+        } else {
+            console.error("Função mostrarTela não encontrada");
+            // Tenta chamar diretamente
+            mostrarTela("tela-editor");
+        }
+    }).catch(error => {
+        console.error("Erro ao processar dias:", error);
+        alert("Erro ao carregar os dias de treino");
     });
+
 
     window.mostrarTela("tela-editor");
 }
