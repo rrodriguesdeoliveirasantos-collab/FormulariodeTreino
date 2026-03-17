@@ -1,14 +1,14 @@
-// assets/js/main.js
-import { bibliotecaExercicios } from './biblioteca-exercicios.js';
-import { adicionarDia, limparFormulario, mostrarTela, atualizarNumeroDias } from './modules/ui.js';
+// assets/js/main.js - VERSÃO CORRIGIDA
+import { bibliotecaExercicios } from '/FormulariodeTreino/assets/js/biblioteca-exercicios.js';
+import { adicionarDia, limparFormulario, mostrarTela, atualizarNumeroDias } from '/FormulariodeTreino/assets/js/modules/ui.js';
 import {
      salvarDados, carregarDados, salvarFicha, listarAlunos,
      removerAluno, verFicha, removerFicha, abrirFichaAluno, voltarParaAlunos
-} from './modules/storage.js';
-import { gerarFicha, gerarPDF } from './modules/pdf.js';
-import { setupPWA, setupSplash } from './modules/pwa.js';
+} from '/FormulariodeTreino/assets/js/modules/storage.js';
+import { gerarFicha, gerarPDF } from '/FormulariodeTreino/assets/js/modules/pdf.js';
+import { setupPWA, setupSplash } from '/FormulariodeTreino/assets/js/modules/pwa.js';
 
-// === PRIMEIRO: Tornar funções globais ===
+// Tornar funções globais para uso no HTML
 window.adicionarDia = adicionarDia;
 window.limparFormulario = limparFormulario;
 window.mostrarTela = mostrarTela;
@@ -23,84 +23,43 @@ window.gerarFicha = gerarFicha;
 window.gerarPDF = gerarPDF;
 window.voltarParaAlunos = voltarParaAlunos;
 
-// === DEPOIS: Configurar eventos (UM ÚNICO EVENT LISTENER) ===
-document.addEventListener("DOMContentLoaded", function () {
-     console.log("DOM Carregado - Iniciando app...");
-     
-     // Carrega dados salvos
-     carregarDados();
-     
-     // FORÇA A TELA DE ALUNOS A APARECER
-     mostrarTela("tela-alunos");
-     
-     // Lista os alunos
-     listarAlunos();
-
-     // Event listeners
-     const buscarInput = document.getElementById("buscarAluno");
-     if (buscarInput) {
-         buscarInput.addEventListener("input", listarAlunos);
-     }
-
-     const novaFichaBtn = document.getElementById("novaFicha");
-     if (novaFichaBtn) {
-         novaFichaBtn.addEventListener("click", () => {
-              limparFormulario();
-              mostrarTela("tela-editor");
-         });
-     }
-
-     const voltarListaBtn = document.getElementById("voltarLista");
-     if (voltarListaBtn) {
-         voltarListaBtn.addEventListener("click", () => {
-              mostrarTela("tela-alunos");
-              listarAlunos();
-         });
-     }
-
-     const voltarEditorBtn = document.getElementById("voltarEditor");
-     if (voltarEditorBtn) {
-         voltarEditorBtn.addEventListener("click", () => {
-              mostrarTela("tela-editor");
-         });
-     }
-
-     const voltarBtn = document.getElementById("voltarParaAlunos");
-     if (voltarBtn) {
-         voltarBtn.addEventListener("click", function() {
-             console.log("Botão voltar clicado!");
-             voltarParaAlunos();
-         });
-     }
-
-     const adicionarDiaBtn = document.getElementById("adicionarDia");
-     if (adicionarDiaBtn) {
-         adicionarDiaBtn.addEventListener("click", adicionarDia);
-     }
-
-     const gerarPDFBtn = document.getElementById("gerarPDF");
-     if (gerarPDFBtn) {
-         gerarPDFBtn.addEventListener("click", gerarPDF);
-     }
-
-     const salvarFichaBtn = document.getElementById("salvarFicha");
-     if (salvarFichaBtn) {
-         salvarFichaBtn.addEventListener("click", salvarFicha);
-     }
-
-     const nomeInput = document.getElementById("nome");
-     if (nomeInput) {
-         nomeInput.addEventListener("input", salvarDados);
-     }
-
-     const objetivoInput = document.getElementById("objetivo");
-     if (objetivoInput) {
-         objetivoInput.addEventListener("input", salvarDados);
-     }
-
-     // PWA
-     setupPWA();
-     setupSplash();
-     
-     console.log("App iniciado com sucesso!");
+// Inicialização
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("🚀 App iniciando...");
+    
+    // Mostra a tela de alunos primeiro
+    mostrarTela('tela-alunos');
+    
+    // Carrega dados
+    carregarDados();
+    listarAlunos();
+    
+    // Configura eventos
+    document.getElementById('buscarAluno')?.addEventListener('input', listarAlunos);
+    document.getElementById('novaFicha')?.addEventListener('click', () => {
+        limparFormulario();
+        mostrarTela('tela-editor');
+    });
+    
+    document.getElementById('voltarLista')?.addEventListener('click', () => {
+        mostrarTela('tela-alunos');
+        listarAlunos();
+    });
+    
+    document.getElementById('voltarEditor')?.addEventListener('click', () => {
+        mostrarTela('tela-editor');
+    });
+    
+    document.getElementById('voltarParaAlunos')?.addEventListener('click', voltarParaAlunos);
+    document.getElementById('adicionarDia')?.addEventListener('click', adicionarDia);
+    document.getElementById('gerarPDF')?.addEventListener('click', gerarPDF);
+    document.getElementById('salvarFicha')?.addEventListener('click', salvarFicha);
+    document.getElementById('nome')?.addEventListener('input', salvarDados);
+    document.getElementById('objetivo')?.addEventListener('input', salvarDados);
+    
+    // PWA
+    setupPWA();
+    setupSplash();
+    
+    console.log("✅ App pronto!");
 });
