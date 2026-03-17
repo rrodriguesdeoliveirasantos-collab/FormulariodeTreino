@@ -1,5 +1,5 @@
 // assets/js/modules/ui.js
-import { bibliotecaExercicios } from '../FormulariodeTREINO/biblioteca-exercicios.js';
+import { bibliotecaExercicios } from '../biblioteca-exercicios.js';
 
 let contadorDiasUI = 0;
 
