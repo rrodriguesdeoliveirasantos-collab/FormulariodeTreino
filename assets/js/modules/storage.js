@@ -65,22 +65,59 @@ export function salvarFicha() {
 }
 
 // Listar alunos
+
 export function listarAlunos() {
+    console.log("Listando alunos");
+    
+    // Garante que os botões estejam no estado correto
+    const voltarBtn = document.getElementById("voltarParaAlunos");
+    const novaFichaBtn = document.getElementById("novaFicha");
+    
+    if (voltarBtn) voltarBtn.style.display = "none";
+    if (novaFichaBtn) novaFichaBtn.style.display = "inline-block";
+
     const alunos = JSON.parse(localStorage.getItem("Alunos")) || [];
     const container = document.getElementById("lista-fichas");
     const busca = document.getElementById("buscarAluno").value.toLowerCase();
+
     container.innerHTML = "";
+
+    if (alunos.length === 0) {
+        const mensagem = document.createElement("p");
+        mensagem.textContent = "Nenhum aluno cadastrado.";
+        mensagem.style.textAlign = "left";
+        mensagem.style.padding = "20px";
+        container.appendChild(mensagem);
+        return;
+    }
 
     alunos.forEach((aluno, index) => {
         if (!aluno.nome.toLowerCase().includes(busca)) return;
 
         const div = document.createElement("div");
         div.className = "ficha-salva";
+        div.style.marginBottom = "10px";
+        div.style.padding = "15px";
+        div.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+        div.style.borderRadius = "8px";
         div.innerHTML = `
-            <b>${aluno.nome}</b>
-            <button type="button" onclick="window.verFicha(${index})">Ver fichas</button>
-            <button type="button" onclick="window.removerAluno(${index})">Excluir</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <b>${aluno.nome}</b>
+                    <br>
+                    <small>${aluno.fichas?.length || 0} fichas</small>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary btn-sm" onclick="window.verFicha(${index})">
+                        Ver fichas
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="window.removerAluno(${index})">
+                        Excluir
+                    </button>
+                </div>
+            </div>
         `;
+
         container.appendChild(div);
     });
 }
@@ -97,19 +134,115 @@ export function removerAluno(index) {
 
 // Ver fichas do aluno
 export function verFicha(index) {
-    const alunos = JSON.parse(localStorage.getItem("Alunos"));
+    console.log("Ver fichas do aluno:", index);
+    
+    // Verifica se o índice é válido
+    if (index === undefined || index === null) {
+        console.error("Índice do aluno inválido");
+        return;
+    }
+
+    // Tenta pegar alunos do localStorage
+    let alunos;
+    try {
+        alunos = JSON.parse(localStorage.getItem("Alunos"));
+    } catch (e) {
+        console.error("Erro ao ler localStorage:", e);
+        alunos = [];
+    }
+    
+    // Verifica se alunos é um array e tem o índice
+    if (!Array.isArray(alunos) || !alunos[index]) {
+        console.error("Aluno não encontrado no índice:", index);
+        alert("Erro: Aluno não encontrado!");
+        return;
+    }
+
     const aluno = alunos[index];
+    
+    // Verifica se o aluno tem nome
+    if (!aluno || !aluno.nome) {
+        console.error("Aluno inválido:", aluno);
+        alert("Erro: Dados do aluno inválidos!");
+        return;
+    }
+
     const container = document.getElementById("lista-fichas");
+    if (!container) {
+        console.error("Container lista-fichas não encontrado");
+        return;
+    }
+
+    // Mostra botão voltar e esconde nova ficha
+    const voltarBtn = document.getElementById("voltarParaAlunos");
+    const novaFichaBtn = document.getElementById("novaFicha");
+    
+    if (voltarBtn) voltarBtn.style.display = "inline-block";
+    if (novaFichaBtn) novaFichaBtn.style.display = "none";
+
+    // Limpa o container
     container.innerHTML = "";
 
+    // Adiciona cabeçalho com verificação
+    try {
+        const headerDiv = document.createElement("div");
+        headerDiv.style.marginBottom = "20px";
+        headerDiv.style.padding = "10px";
+        headerDiv.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+        headerDiv.style.borderRadius = "8px";
+        headerDiv.style.textAlign = "left";
+        headerDiv.innerHTML = `<h3>Fichas de ${aluno.nome || "Aluno"}</h3>`;
+        container.appendChild(headerDiv);
+    } catch (e) {
+        console.error("Erro ao criar cabeçalho:", e);
+    }
+
+    // Verifica se o aluno tem fichas
+    if (!aluno.fichas || !Array.isArray(aluno.fichas) || aluno.fichas.length === 0) {
+        const mensagem = document.createElement("p");
+        mensagem.style.textAlign = "left";
+        mensagem.style.padding = "20px";
+        mensagem.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+        mensagem.style.borderRadius = "8px";
+        mensagem.textContent = "Nenhuma ficha encontrada para este aluno.";
+        container.appendChild(mensagem);
+        return;
+    }
+
+    // Lista as fichas
     aluno.fichas.forEach((ficha, idx) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-            <b>Ficha ${idx + 1}</b> - ${ficha.objetivo}
-            <button type="button" onclick="window.abrirFichaAluno(${index}, ${idx})">Abrir</button>
-            <button type="button" onclick="window.removerFicha(${index}, ${idx})">Excluir</button>
-        `;
-        container.appendChild(div);
+        try {
+            const div = document.createElement("div");
+            div.className = "ficha-salva";
+            div.style.marginBottom = "10px";
+            div.style.padding = "15px";
+            div.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+            div.style.borderRadius = "8px";
+            
+            const objetivo = ficha.objetivo || "Sem objetivo";
+            const totalDias = ficha.dias?.length || 0;
+            
+            div.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <b>Ficha ${idx + 1}</b> - ${objetivo}
+                        <br>
+                        <small>${totalDias} dias de treino</small>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary btn-sm" onclick="window.abrirFichaAluno(${index}, ${idx})">
+                            Abrir
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="window.removerFicha(${index}, ${idx})">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        } catch (e) {
+            console.error("Erro ao criar item de ficha:", e);
+        }
     });
 }
 
@@ -123,10 +256,7 @@ export function removerFicha(alunoIndex, fichaIndex) {
     verFicha(alunoIndex);
 }
 
-// Abrir ficha do aluno
-// assets/js/modules/storage.js
-
-// ... outras funções ...
+// Abrir ficha do alunos
 
 export function abrirFichaAluno(alunoIndex, fichaIndex) {
     console.log("Abrindo ficha do aluno:", alunoIndex, fichaIndex); // Para debug
@@ -288,4 +418,30 @@ export function abrirFichaAluno(alunoIndex, fichaIndex) {
 
 
     window.mostrarTela("tela-editor");
+}
+
+// Função para voltar para a lista de alunos
+export function voltarParaAlunos() {
+    console.log("Voltando para lista de alunos");
+    
+    // Esconde o botão voltar e mostra o nova ficha
+    const voltarBtn = document.getElementById("voltarParaAlunos");
+    const novaFichaBtn = document.getElementById("novaFicha");
+    
+    if (voltarBtn) {
+        voltarBtn.style.display = "none";
+        console.log("Botão voltar escondido");
+    }
+    
+    if (novaFichaBtn) {
+        novaFichaBtn.style.display = "inline-block";  // Mudei para inline-block
+        console.log("Botão nova ficha exibido");
+    }
+    
+    // Recarrega a lista de alunos
+    if (typeof window.listarAlunos === 'function') {
+        window.listarAlunos();
+    } else {
+        listarAlunos();
+    }
 }

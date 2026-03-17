@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
 
-
     <link rel="manifest" href="manifest.json">
 
     <link rel="icon" href="assets/icons/gorila192.png">
@@ -16,7 +15,7 @@
 </head>
 
 <body>
-
+    
 
     <div id="splash-screen">
         <img src="assets/icons/gorila512.png">
@@ -25,80 +24,86 @@
 
     <div class="app">
 
-        <!-- Tela 1 de alunos e fichas salvas -->
+        <!-- Tela 1 - Alunos e fichas salvas -->
         <div id="tela-alunos">
-
-
-
             <h2>Fichas Salvas</h2>
 
-            <input type="text" id="buscarAluno" placeholder="Buscar aluno...">
+            <input type="text" id="buscarAluno" placeholder="Buscar aluno..." class="form-control">
 
-            <button type="button" id="instalarApp">
+            <button type="button" id="instalarApp" class="btn btn-secondary">
                 Instalar App
             </button>
 
             <div id="lista-fichas"></div>
 
-            <button id="novaFicha">
-                Nova Ficha
-            </button>
+            <!-- Container para botões -->
+            <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: flex-start;">
+                <button id="novaFicha" class="btn btn-primary">
+                    Nova Ficha
+                </button>
 
+                <button id="voltarParaAlunos" class="btn btn-secondary" style="display: none;">
+                    Voltar
+                </button>
+            </div>
         </div>
 
-
-        <!-- Tela 2 de editor de treino -->
+        <!-- Tela 2 - Editor de treino -->
         <div id="tela-editor" style="display: none;">
+            <h2>Criar Ficha de Treino</h2>
 
-            <h2>Criar ficha</h2>
-
-            <input id="nome" placeholder="Nome do aluno">
-            <input id="objetivo" placeholder="Objetivo">
-            <input id="nomeFicha" placeholder="Nome da Ficha">
+            <div class="form-group">
+                <input id="nome" placeholder="Nome do aluno" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <input id="objetivo" placeholder="Objetivo" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <input id="nomeFicha" placeholder="Nome da Ficha" class="form-control">
+            </div>
 
             <div id="dias-container"></div>
 
-            <button type="button" id="adicionarDia">
-                Adicionar dia
-            </button>
+            <!-- Toolbar com botões padronizados -->
+            <div class="toolbar" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                <button type="button" id="adicionarDia" class="btn btn-primary">
+                    + Adicionar dia
+                </button>
 
-            <button type="button" onclick="gerarFicha()">
-                Visializar Ficha
-            </button>
+                <button type="button" onclick="gerarFicha()" class="btn btn-action">
+                    👁 Visualizar Ficha
+                </button>
 
+                <button type="button" id="salvarFicha" class="btn btn-success">
+                     Salvar Ficha
+                </button>
 
-            <button type="button" id="salvarFicha">
-                Salvar Ficha
-            </button>
-
-            <button type="button" id="voltarLista">
-                Voltar
-            </button>
+                <button type="button" id="voltarLista" class="btn btn-secondary">
+                    ← Voltar
+                </button>
+            </div>
         </div>
 
-
-        <!-- Tela 3 de visualização de ficha -->
+        <!-- Tela 3 - Visualização de ficha -->
         <div id="tela-visualizar" style="display: none;">
-
             <div id="ficha"></div>
 
-            <button type="button" id="gerarPDF">
-                gerarPDF
-            </button>
+            <div class="toolbar" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+                <button type="button" id="gerarPDF" class="btn btn-action">
+                 Gerar PDF
+                </button>
 
-            <button type="button" id="voltarEditor">
-                Voltar
-            </button>
-
-
+                <button type="button" id="voltarEditor" class="btn btn-secondary">
+                    ← Voltar
+                </button>
+            </div>
         </div>
 
     </div>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
-    </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script type="module" src="assets/js/main.js"></script>
 
 </body>

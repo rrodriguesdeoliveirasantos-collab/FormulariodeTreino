@@ -125,47 +125,99 @@ input:focus, textarea:focus, .form-control:focus {
     box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
 }
 
-/* ===== BOTÕES ===== */
-button {
-    background-color: var(--primary-color);
-    color: var(--text-dark);
-    border: none;
+/* ===== BOTÕES PADRONIZADOS ===== */
+
+/* Botão Padrão */
+.btn {
     padding: 10px 20px;
-    border-radius: var(--radius-sm);
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
-    margin: 5px;
-    box-shadow: var(--shadow);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
 }
 
-button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-button.Excluir, .btn-danger {
-    background-color: var(--danger-color);
-    color: var(--text-light);
-}
-
-button.Excluir:hover, .btn-danger:hover {
-    background-color: #c0392b;
-}
-
+/* Botão Primário - Azul (Nova Ficha, Abrir, Ver fichas) */
 .btn-primary {
-    background-color: var(--primary-color);
-    color: var(--text-dark);
+    background-color: #2563eb !important;  /* Azul */
+    color: white !important;
 }
 
+.btn-primary:hover {
+    background-color: #1d4ed8 !important;  /* Azul mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Botão Secundário - Cinza (Voltar, Cancelar) */
 .btn-secondary {
-    background-color: #95a5a6;
-    color: var(--text-light);
+    background-color: #6c757d !important;  /* Cinza */
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268 !important;  /* Cinza mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Botão de Perigo - Vermelho (Excluir, Remover) */
+.btn-danger {
+    background-color: #ef4444 !important;  /* Vermelho */
+    color: white !important;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626 !important;  /* Vermelho mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Botão Sucesso - Verde (Salvar, Confirmar) */
+.btn-success {
+    background-color: #10b981 !important;  /* Verde */
+    color: white !important;
+}
+
+.btn-success:hover {
+    background-color: #059669 !important;  /* Verde mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Botão Ação - Laranja (Gerar PDF, etc) */
+.btn-action {
+    background-color: #f59e0b !important;  /* Laranja */
+    color: white !important;
+}
+
+.btn-action:hover {
+    background-color: #d97706 !important;  /* Laranja mais escuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Desabilitar botão */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Tamanhos de botão */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: 70px;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    min-width: 120px;
 }
 
 /* ===== BARRA DE FERRAMENTAS ===== */
@@ -574,6 +626,79 @@ button.Excluir:hover, .btn-danger:hover {
         right: 10px;
         padding: 8px 16px;
         font-size: 14px;
+    }
+}
+
+
+.ficha-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(5px);
+}
+
+.ficha-header h2 {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 1.3rem;
+}
+
+.ficha-info {
+    flex: 1;
+}
+
+.ficha-info small {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.ficha-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ficha-actions button {
+    margin: 0;
+    min-width: 80px;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .ficha-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .ficha-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .ficha-salva {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .ficha-info {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .ficha-actions {
+        width: 100%;
+    }
+    
+    .ficha-actions button {
+        flex: 1;
     }
 }
 

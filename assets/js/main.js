@@ -3,7 +3,8 @@ import { bibliotecaExercicios } from './biblioteca-exercicios.js';
 import { adicionarDia, limparFormulario, mostrarTela, atualizarNumeroDias } from './modules/ui.js';
 import {
      salvarDados, carregarDados, salvarFicha, listarAlunos,
-     removerAluno, verFicha, removerFicha, abrirFichaAluno
+     removerAluno, verFicha, removerFicha, abrirFichaAluno, voltarParaAlunos
+
 } from './modules/storage.js';
 import { gerarFicha, gerarPDF } from './modules/pdf.js';
 import { setupPWA, setupSplash } from './modules/pwa.js';
@@ -21,6 +22,7 @@ window.removerFicha = removerFicha;
 window.abrirFichaAluno = abrirFichaAluno;
 window.gerarFicha = gerarFicha;
 window.gerarPDF = gerarPDF;
+window.voltarParaAlunos = voltarParaAlunos;
 
 // Configurar eventos quando o DOM carregar
 document.addEventListener("DOMContentLoaded", function () {
@@ -42,6 +44,17 @@ document.addEventListener("DOMContentLoaded", function () {
      document.getElementById("voltarEditor").addEventListener("click", () => {
           mostrarTela("tela-editor");
      });
+
+     const voltarBtn = document.getElementById("voltarParaAlunos");
+    if (voltarBtn) {
+        // Remove qualquer evento anterior e adiciona novo
+        voltarBtn.replaceWith(voltarBtn.cloneNode(true)); // Isso remove eventos antigos
+        const novoBotao = document.getElementById("voltarParaAlunos");
+        novoBotao.addEventListener("click", function() {
+            console.log("Botão voltar clicado!");
+            voltarParaAlunos();
+        })
+     }
 
      document.getElementById("adicionarDia").addEventListener("click", adicionarDia);
      document.getElementById("gerarPDF").addEventListener("click", gerarPDF);
