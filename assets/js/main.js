@@ -4,12 +4,11 @@ import { adicionarDia, limparFormulario, mostrarTela, atualizarNumeroDias } from
 import {
      salvarDados, carregarDados, salvarFicha, listarAlunos,
      removerAluno, verFicha, removerFicha, abrirFichaAluno, voltarParaAlunos
-
 } from './modules/storage.js';
 import { gerarFicha, gerarPDF } from './modules/pdf.js';
 import { setupPWA, setupSplash } from './modules/pwa.js';
 
-// Tornar funções globais para uso no HTML
+// === PRIMEIRO: Tornar funções globais ===
 window.adicionarDia = adicionarDia;
 window.limparFormulario = limparFormulario;
 window.mostrarTela = mostrarTela;
@@ -24,61 +23,84 @@ window.gerarFicha = gerarFicha;
 window.gerarPDF = gerarPDF;
 window.voltarParaAlunos = voltarParaAlunos;
 
-// ... (seus imports e atribuições window.funcao = funcao) ...
-
-// ++++++++++ LINHA NOVA PARA TESTE ++++++++++
-// Força a tela de alunos a aparecer assim que o script é executado
-document.addEventListener("DOMContentLoaded", function() {
-    // Tenta mostrar a tela de alunos e listar os alunos
-    if (typeof window.mostrarTela === 'function') {
-        window.mostrarTela('tela-alunos');
-    }
-    if (typeof window.listarAlunos === 'function') {
-        window.listarAlunos();
-    }
-});
-
-// ... (seu event listener original do DOMContentLoaded) ...
-
-// Configurar eventos quando o DOM carregar
+// === DEPOIS: Configurar eventos (UM ÚNICO EVENT LISTENER) ===
 document.addEventListener("DOMContentLoaded", function () {
+     console.log("DOM Carregado - Iniciando app...");
+     
+     // Carrega dados salvos
      carregarDados();
+     
+     // FORÇA A TELA DE ALUNOS A APARECER
+     mostrarTela("tela-alunos");
+     
+     // Lista os alunos
      listarAlunos();
 
      // Event listeners
-     document.getElementById("buscarAluno").addEventListener("input", listarAlunos);
-     document.getElementById("novaFicha").addEventListener("click", () => {
-          limparFormulario();
-          mostrarTela("tela-editor");
-     });
-
-     document.getElementById("voltarLista").addEventListener("click", () => {
-          mostrarTela("tela-alunos");
-          listarAlunos();
-     });
-
-     document.getElementById("voltarEditor").addEventListener("click", () => {
-          mostrarTela("tela-editor");
-     });
-
-     const voltarBtn = document.getElementById("voltarParaAlunos");
-    if (voltarBtn) {
-        // Remove qualquer evento anterior e adiciona novo
-        voltarBtn.replaceWith(voltarBtn.cloneNode(true)); // Isso remove eventos antigos
-        const novoBotao = document.getElementById("voltarParaAlunos");
-        novoBotao.addEventListener("click", function() {
-            console.log("Botão voltar clicado!");
-            voltarParaAlunos();
-        })
+     const buscarInput = document.getElementById("buscarAluno");
+     if (buscarInput) {
+         buscarInput.addEventListener("input", listarAlunos);
      }
 
-     document.getElementById("adicionarDia").addEventListener("click", adicionarDia);
-     document.getElementById("gerarPDF").addEventListener("click", gerarPDF);
-     document.getElementById("salvarFicha").addEventListener("click", salvarFicha);
-     document.getElementById("nome").addEventListener("input", salvarDados);
-     document.getElementById("objetivo").addEventListener("input", salvarDados);
+     const novaFichaBtn = document.getElementById("novaFicha");
+     if (novaFichaBtn) {
+         novaFichaBtn.addEventListener("click", () => {
+              limparFormulario();
+              mostrarTela("tela-editor");
+         });
+     }
+
+     const voltarListaBtn = document.getElementById("voltarLista");
+     if (voltarListaBtn) {
+         voltarListaBtn.addEventListener("click", () => {
+              mostrarTela("tela-alunos");
+              listarAlunos();
+         });
+     }
+
+     const voltarEditorBtn = document.getElementById("voltarEditor");
+     if (voltarEditorBtn) {
+         voltarEditorBtn.addEventListener("click", () => {
+              mostrarTela("tela-editor");
+         });
+     }
+
+     const voltarBtn = document.getElementById("voltarParaAlunos");
+     if (voltarBtn) {
+         voltarBtn.addEventListener("click", function() {
+             console.log("Botão voltar clicado!");
+             voltarParaAlunos();
+         });
+     }
+
+     const adicionarDiaBtn = document.getElementById("adicionarDia");
+     if (adicionarDiaBtn) {
+         adicionarDiaBtn.addEventListener("click", adicionarDia);
+     }
+
+     const gerarPDFBtn = document.getElementById("gerarPDF");
+     if (gerarPDFBtn) {
+         gerarPDFBtn.addEventListener("click", gerarPDF);
+     }
+
+     const salvarFichaBtn = document.getElementById("salvarFicha");
+     if (salvarFichaBtn) {
+         salvarFichaBtn.addEventListener("click", salvarFicha);
+     }
+
+     const nomeInput = document.getElementById("nome");
+     if (nomeInput) {
+         nomeInput.addEventListener("input", salvarDados);
+     }
+
+     const objetivoInput = document.getElementById("objetivo");
+     if (objetivoInput) {
+         objetivoInput.addEventListener("input", salvarDados);
+     }
 
      // PWA
      setupPWA();
      setupSplash();
+     
+     console.log("App iniciado com sucesso!");
 });
