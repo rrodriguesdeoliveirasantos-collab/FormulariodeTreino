@@ -24,6 +24,22 @@ window.gerarFicha = gerarFicha;
 window.gerarPDF = gerarPDF;
 window.voltarParaAlunos = voltarParaAlunos;
 
+// ... (seus imports e atribuições window.funcao = funcao) ...
+
+// ++++++++++ LINHA NOVA PARA TESTE ++++++++++
+// Força a tela de alunos a aparecer assim que o script é executado
+document.addEventListener("DOMContentLoaded", function() {
+    // Tenta mostrar a tela de alunos e listar os alunos
+    if (typeof window.mostrarTela === 'function') {
+        window.mostrarTela('tela-alunos');
+    }
+    if (typeof window.listarAlunos === 'function') {
+        window.listarAlunos();
+    }
+});
+
+// ... (seu event listener original do DOMContentLoaded) ...
+
 // Configurar eventos quando o DOM carregar
 document.addEventListener("DOMContentLoaded", function () {
      carregarDados();
