@@ -3,7 +3,7 @@ import { bibliotecaExercicios } from '../biblioteca-exercicios.js';
 
 let contadorDiasUI = 0;
 
-// === FUNÇÕES PRINCIPAIS (EXPORTADAS) ===
+//FUNÇÕES PRINCIPAIS
 
 export function adicionarDia() {
     console.log("Adicionando dia...");
@@ -39,7 +39,6 @@ export function adicionarDia() {
     configurarRemocaoDia(bloco);
 }
 
-// FUNÇÃO QUE ESTAVA FALTANDO
 export function atualizarNumeroDias() {
     const dias = document.querySelectorAll(".dia");
     dias.forEach((dia, index) => {
@@ -49,7 +48,6 @@ export function atualizarNumeroDias() {
     contadorDiasUI = dias.length;
 }
 
-// FUNÇÃO QUE ESTAVA FALTANDO
 export function limparFormulario() {
     document.getElementById("nome").value = "";
     document.getElementById("objetivo").value = "";
@@ -66,8 +64,6 @@ export function mostrarTela(id) {
     });
     document.getElementById(id).style.display = "block";
 }
-
-// === FUNÇÕES INTERNAS (NÃO EXPORTADAS) ===
 
 function configurarSelects(bloco) {
     const selectGrupo = bloco.querySelector(".select-grupo");

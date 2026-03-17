@@ -8,7 +8,7 @@ import {
 import { gerarFicha, gerarPDF } from './modules/pdf.js';
 import { setupPWA, setupSplash } from './modules/pwa.js';
 
-// === PRIMEIRO: Tornar funções globais ===
+//Torna funções globais
 window.adicionarDia = adicionarDia;
 window.limparFormulario = limparFormulario;
 window.mostrarTela = mostrarTela;
@@ -23,7 +23,7 @@ window.gerarFicha = gerarFicha;
 window.gerarPDF = gerarPDF;
 window.voltarParaAlunos = voltarParaAlunos;
 
-// === DEPOIS: Configurar eventos (UM ÚNICO EVENT LISTENER) ===
+//Configura eventos
 document.addEventListener("DOMContentLoaded", function () {
      console.log("DOM Carregado - Iniciando app...");
      
