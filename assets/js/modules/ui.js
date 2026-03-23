@@ -24,10 +24,10 @@ export function adicionarDia() {
         <h3>Dia ${contadorDiasUI}</h3>
         <input class="titulo-dia" placeholder="Ex: Inferiores + Cardio">
         <select class="select-grupo">
-            <option value=""> Grupo muscular </option>
+            <option value=""> escolha o grupo muscular </option>
         </select>
         <select class="select-exercicio">
-            <option value="">Adicionar exercício</option>
+            <option value="">Adicione o exercício</option>
         </select>
         <div class="lista-exercicios"></div>
         <input class="observacao" placeholder="Observação (opcional)">
