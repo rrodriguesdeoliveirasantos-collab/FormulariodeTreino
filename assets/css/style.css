@@ -3,7 +3,7 @@
     --bg-overlay: rgba(0, 0, 0, 0.7);
     --card-bg: rgba(255, 255, 255, 0.85);
     --text-dark: #333;
-    --text-light: #fff;
+    --text-light: #6c757d;
     --primary-color: #d4a373;  /* Tom dourado que combina com o fundo */
     --primary-hover: #b5835a;
     --danger-color: #e74c3c;
@@ -245,7 +245,7 @@ input:focus, textarea:focus, .form-control:focus {
 .dia {
     background-color: var(--card-bg);
     border-radius: var(--radius-lg);
-    padding: 20px;
+    padding: 15px;
     width: 320px;
     box-shadow: var(--shadow);
     margin-bottom: 20px;
@@ -312,12 +312,13 @@ input:focus, textarea:focus, .form-control:focus {
 .exercicio-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: white;
+    gap: 6px;
+    background: rgb(255, 255, 255);
     padding: 10px;
     border-radius: var(--radius-sm);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: aparecer 0.2s ease;
+    color: var(--text-dark);
 }
 
 .nome-exercicio {
@@ -398,13 +399,13 @@ input:focus, textarea:focus, .form-control:focus {
 
 #ficha h1 {
     text-align: center;
-    color: var(--text-light);
+    color: var(--text-dark);
     margin-bottom: 30px;
     font-size: 2rem;
 }
 
 #ficha h2 {
-    color: var(--text-light);
+    color: var(--text-dark);
     margin-bottom: 15px;
     font-size: 1.5rem;
     border-bottom: 2px solid var(--primary-color);
@@ -655,7 +656,7 @@ input:focus, textarea:focus, .form-control:focus {
 
 .ficha-info small {
     display: block;
-    color: #666;
+    color: #000000;
     font-size: 0.85rem;
     margin-top: 5px;
 }

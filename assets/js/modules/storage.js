@@ -1,4 +1,5 @@
 // assets/js/modules/storage.js
+let fichaEmEdicao = null;
 
 // Salvar dados do formulário
 export function salvarDados() {
@@ -16,7 +17,7 @@ export function carregarDados() {
     if (objetivo) document.getElementById("objetivo").value = objetivo;
 }
 
-// Salvar ficha completa
+// Salvar ficha
 export function salvarFicha() {
     const nome = document.getElementById("nome").value.trim();
     const objetivo = document.getElementById("objetivo").value.trim();
@@ -51,6 +52,7 @@ export function salvarFicha() {
     });
 
     const novaFicha = { objetivo, dias: diasTreino };
+
     let alunos = JSON.parse(localStorage.getItem("Alunos")) || [];
     let aluno = alunos.find(a => a.nome === nome);
 
@@ -59,8 +61,18 @@ export function salvarFicha() {
         alunos.push(aluno);
     }
 
-    aluno.fichas.push(novaFicha);
+    if (fichaEmEdicao !== null) {
+        // 🔁 EDITAR ficha existente
+        aluno.fichas[fichaEmEdicao] = novaFicha;
+    } else {
+        // ➕ NOVA ficha
+        aluno.fichas.push(novaFicha);
+    }
+
     localStorage.setItem("Alunos", JSON.stringify(alunos));
+
+    fichaEmEdicao = null; // limpa modo edição
+
     alert("Ficha salva com sucesso!");
 }
 
@@ -286,6 +298,8 @@ export function abrirFichaAluno(alunoIndex, fichaIndex) {
     }
     
     const ficha = aluno.fichas[fichaIndex];
+
+    fichaEmEdicao = fichaIndex;
     
     console.log("Ficha carregada:", ficha); // Para debug
 

@@ -129,3 +129,53 @@ function configurarRemocaoDia(bloco) {
         }
     });
 }
+//funµao para alterar ficha criada
+export function carregarFichaparaEdiµao(ficha) {
+    limparFormulario();
+
+
+    document.getElementById("nome").value = ficha.nome;
+    document.getElementById("objetivo").value = ficha.objetivo;
+
+
+    ficha.dias.forEach(dia=> {
+       adicionarDia();
+
+
+       const diasDOM = document.querySelectorAll(".dia");
+       const ultimoDia = diasDOM[diasDOM.length - 1];
+
+
+       ultimoDia.querySelector(".titul-oDia").value = dia.titulo;
+       ultimoDia.querySelector(".observaçao").value = dia.observaçao;
+
+       const lista = ultimoDia.querySelector(".lista-exercicios");
+
+
+       dia.exercicio.forEach(ex => {
+        const exercicio = document.createElement("div");
+        exercicio.className = "exercicio-item";
+
+
+        exercicio.innerHTML = `
+            <span class="nome-exercicio"> ${ex.nome}<span/>
+            <imput class="series" value="${ex.series}">
+            <imput class="reps" value="${ex.reps}">
+            <buttom type="buttom" class="rmover-exercicios"><buttom/>
+
+            `;
+
+        lista.appendChild(exercicio);
+
+        exercicio.querySelector(".remover-exercicio")
+        .addEventListener("click", () => exercicio.remove())
+
+       });
+
+    });
+
+    fichaEmEdiçao = ficha.id;
+
+    mostrarTela("tela-editor");
+
+}

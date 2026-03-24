@@ -2,241 +2,253 @@
 
 export const bibliotecaExercicios = {
     Pernas: [
-        // Quadríceps / Glúteos / Posteriores [citation:7]
+        // Padrão de agachamento (ênfase em quadríceps e glúteos)
         "Agachamento Livre",
-        "Agachamento no Smith",
         "Agachamento Frontal",
-        "Agachamento Bulgaro",
+        "Agachamento Búlgaro",
+        "Agachamento Sumô",
         "Leg Press 45°",
-        "Leg Press Horizontal",
-        "Cadeira Extensora",
-        "Mesa Flexora",
-        "Cadeira Flexora",
-        "Stiff com barra",
-        "Stiff com halteres",
+        "Hack Machine",
+        
+        // Padrão de extensão de quadril (ênfase em glúteos e posterior)
         "Levantamento Terra",
         "Levantamento Terra Sumô",
-        "Afundo com halteres",
-        "Afundo no smith",
-        "Passada (Walking Lunge)",
+        "Stiff com barra",
         "Elevação Pélvica",
-        "Hack Machine",
+        "Extensão de quadril na polia",
+        
+        // Isoladores de quadríceps
+        "Cadeira Extensora",
+        "Afundo com halteres",
+        "Passada (Walking Lunge)",
+        "Sissy Squat",
+        
+        // Isoladores de posterior e glúteos
+        "Mesa Flexora",
+        "Cadeira Flexora",
+        "Coice na polia",
+        "Glúteo 4 apoios",
+        
+        // Abdutores e adutores
         "Cadeira Abdutora",
         "Cadeira Adutora",
+        "Abdução de quadril no chão",
+        
+        // Panturrilha
         "Panturrilha em pé",
         "Panturrilha sentado",
-        "Panturrilha no leg press",
-        "Panturrilha no smith",
-        "Coice na polia",
-        "Abdução de quadril no chão",
-        "Agachamento Sumô",
-        "Sissy squat",
-        "Extensão de quadril na polia",
-        "Glúteo 4 apoios"
+        "Panturrilha no leg press"
     ],
     
     Peito: [
-        // Peitoral maior e menor [citation:1][citation:8]
+        // Supinos com barra
         "Supino reto com barra",
-        "Supino reto com halteres",
-        "Supino reto máquina",
         "Supino inclinado com barra",
-        "Supino inclinado com halteres",
-        "Supino inclinado máquina",
         "Supino declinado com barra",
+        
+        // Supinos com halteres
+        "Supino reto com halteres",
+        "Supino inclinado com halteres",
         "Supino declinado com halteres",
+        
+        // Supinos em máquina
+        "Supino reto máquina",
+        "Supino inclinado máquina",
+        "Supino no smith",
+        
+        // Crucifixos e voadores
         "Crucifixo reto com halteres",
         "Crucifixo inclinado com halteres",
-        "Crucifixo declinado com halteres",
-        "Crucifixo reto na polia baixa",
-        "Crucifixo inclinado na polia baixa",
-        "Crossover (polia alta)",
-        "Crossover (polia média)",
-        "Crossover (polia baixa)",
         "Voador (Peck Deck)",
+        
+        // Crossovers (diferentes angulações)
+        "Crossover polia alta",
+        "Crossover polia baixa",
+        "Crossover polia média",
+        
+        // Pullover
         "Pullover com halter",
         "Pullover na polia",
+        
+        // Flexões
         "Flexão de braços tradicional",
-        "Flexão diamante",
         "Flexão declinada",
         "Flexão inclinada",
+        
+        // Paralelas
         "Paralelas (mergulho)",
-        "Supino com pegada fechada",
-        "Supino inclinado na smith",
-        "Supino declinado na smith",
-        "Adução horizontal com elástico",
-        "Bench press com elástico",
-        "Peck Deck invertido"
+        
+        // Supinos com pegada especial
+        "Supino reto pegada fechada"
     ],
     
     Costas: [
-        // Dorsal, Trapézio, Romboides [citation:2]
-        "Puxada frontal aberta",
-        "Puxada frontal fechada",
-        "Puxada atrás da nuca",
-        "Puxada na polia com triângulo",
-        "Puxada graviton",
+        // Puxadas verticais
         "Barra fixa pegada aberta",
-        "Barra fixa pegada fechada",
         "Barra fixa supinada",
+        "Puxada frontal aberta",
+        "Puxada frontal com triângulo",
+        "Puxada graviton",
+        
+        // Remadas horizontais
         "Remada curvada com barra",
         "Remada curvada com halteres",
         "Remada unilateral com halter",
+        "Remada baixa com triângulo",
+        "Remada sentada máquina",
+        
+        // Remadas articuladas
         "Remada cavalinho",
-        "Remada baixa (triângulo)",
-        "Remada baixa (pegada neutra)",
-        "Remada alta",
-        "Remada na máquina",
-        "Remada sentada na polia",
         "Pulley articulado",
+        "Remada alta",
+        
+        // Pullover
         "Pullover na polia",
         "Pullover com halter",
-        "Fly inverso na máquina",
-        "Crucifixo inverso com halteres",
-        "Crucifixo inverso na polia",
+        
+        // Isoladores escapulares
+        "Crucifixo inverso máquina",
+        "Face pull",
+        
+        // Trapézio
         "Encolhimento com barra",
         "Encolhimento com halteres",
-        "Encolhimento no smith",
+        
+        // Terra e extensão
         "Levantamento Terra",
-        "Bom dia",
         "Hiperextensão (banco romano)",
-        "Face pull"
+        
+        // Isolador lombar
+        "Bom dia"
     ],
     
     Ombros: [
-        // Deltoides anterior, medial, posterior [citation:3][citation:9]
+        // Desenvolvimentos (ênfase anterior)
         "Desenvolvimento com halteres",
         "Desenvolvimento com barra",
         "Desenvolvimento máquina",
         "Desenvolvimento Arnold",
+        
+        // Elevações laterais (ênfase medial)
         "Elevação lateral com halteres",
         "Elevação lateral na polia",
         "Elevação lateral unilateral",
+        
+        // Elevações frontais (ênfase anterior)
         "Elevação frontal com barra",
         "Elevação frontal com halteres",
         "Elevação frontal na polia",
-        "Elevação frontal barra H",
+        
+        // Posterior de ombro
         "Crucifixo inverso máquina",
         "Crucifixo inverso com halteres",
         "Crucifixo inverso na polia",
-        "Crucifixo inverso unilateral",
+        
+        // Remadas altas
         "Remada alta com barra",
         "Remada alta na polia",
-        "Remada alta no cross",
-        "Encolhimento com barra",
-        "Encolhimento com halteres",
+        
+        // Rotadores
         "Face pull",
         "Rotação externa de ombros",
         "Rotação interna de ombros",
-        "Elevação de ombros no banco",
-        "Desenvolvimento sentado",
-        "Desenvolvimento em pé",
-        "Elevação lateral 90 graus",
-        "Elevação unilateral no cross",
-        "Puxada frontal aberta",
-        "Pulley articulado"
+        
+        // Trapézio
+        "Encolhimento com barra",
+        "Encolhimento com halteres"
     ],
     
     Biceps: [
-        // Cabeças longa e curta [citation:4]
+        // Rosca com barra
         "Rosca direta com barra",
         "Rosca direta com barra W",
+        "Rosca inversa",
+        
+        // Rosca com halteres
         "Rosca direta com halteres",
         "Rosca alternada com halteres",
         "Rosca martelo com halteres",
-        "Rosca martelo com barra",
         "Rosca concentrada",
+        
+        // Rosca scott
         "Rosca scott com barra",
         "Rosca scott com halteres",
         "Rosca scott máquina",
-        "Rosca na polia baixa",
-        "Rosca na polia com barra",
+        
+        // Rosca na polia
+        "Rosca na polia baixa com barra",
         "Rosca na polia com corda",
         "Rosca unilateral na polia",
-        "Rosca inversa",
-        "Rosca 21",
+        
+        // Rosca em banco inclinado
         "Rosca no banco inclinado",
-        "Rosca no banco declinado",
         "Rosca spider",
-        "Rosca com pegada neutra",
-        "Rosca com rotação",
-        "Rosca na polia alta unilateral",
-        "Rosca na polia alta com corda",
-        "Rosca no cross over",
-        "Rosca no cabo",
-        "Rosca no banco scott unilateral",
-        "Rosca concentrada na polia",
-        "Rosca martelo no cabo",
-        "Rosca no pulley baixo",
-        "Bíceps com pegada pronada"
+        
+        // Rosca 21
+        "Rosca 21"
     ],
     
     Triceps: [
-        // Cabeças longa, lateral e medial [citation:5][citation:10]
+        // Tríceps polia (cabo)
         "Tríceps pulley com corda",
         "Tríceps pulley com barra reta",
         "Tríceps pulley com barra W",
+        
+        // Tríceps testa
         "Tríceps testa com barra",
         "Tríceps testa com halteres",
         "Tríceps testa na polia",
+        
+        // Tríceps francês
         "Tríceps francês com halter",
         "Tríceps francês unilateral",
-        "Tríceps francês na polia",
+        
+        // Tríceps coice
         "Tríceps coice com halter",
         "Tríceps coice na polia",
+        
+        // Mergulhos
         "Tríceps mergulho em banco",
         "Tríceps mergulho em paralelas",
+        
+        // Supinos pegada fechada
         "Supino reto pegada fechada",
         "Supino inclinado pegada fechada",
-        "Tríceps banco scott",
-        "Tríceps cross com corda",
-        "Tríceps cross com barra",
-        "Tríceps unilateral na polia",
-        "Tríceps testa cross",
-        "Tríceps francês cross",
-        "Tríceps testa no banco inclinado",
-        "Tríceps testa declinado",
-        "Tríceps kickback",
+        
+        // Outros
         "Tríceps na máquina",
-        "Tríceps na polia alta",
-        "Tríceps na polia baixa",
-        "Tríceps com elástico",
-        "Tríceps banco reto",
-        "Tríceps no crossover"
+        "Tríceps cross com corda"
     ],
     
     Abdomen: [
-        // Reto abdominal, oblíquos, transverso [citation:6]
+        // Supra (reto abdominal superior)
         "Abdominal tradicional (supra)",
-        "Abdominal infra (elevação de pernas)",
-        "Abdominal remador",
-        "Abdominal com rotação",
-        "Abdominal oblíquo",
+        "Abdominal declinado",
         "Abdominal na polia",
-        "Abdominal na máquina",
+        
+        // Infra (reto abdominal inferior)
+        "Abdominal infra (elevação de pernas)",
+        "Elevação de pernas na barra",
+        "Elevação de pernas no banco",
+        
+        // Oblíquos
+        "Abdominal com rotação",
+        "Russian twist",
+        "Bicicleta no ar",
+        
+        // Pranchas
         "Prancha tradicional",
         "Prancha lateral",
         "Prancha com elevação de perna",
-        "Prancha com toque no ombro",
+        
+        // Exercícios funcionais
         "Canivete",
-        "Bicicleta no ar",
-        "Russian twist",
-        "Elevação de pernas na barra",
-        "Elevação de pernas no banco",
-        "Abdominal declinado",
-        "Abdominal no banco romano",
-        "Abdominal com peso",
-        "Abdominal com elástico",
-        "Abdominal na bola suíça",
         "V-up",
-        "Mountain climber",
         "Rollout com roda",
-        "Rollout com barra",
-        "Abdominal com perna estendida",
-        "Toque nos calcanhares",
-        "Prancha com elevação de quadril",
-        "Abdominal cruzado",
-        "Abdominal reverso"
+        
+        // Com peso
+        "Abdominal remador",
+        "Abdominal com peso"
     ]
 };
 
