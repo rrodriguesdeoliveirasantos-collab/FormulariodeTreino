@@ -155,7 +155,7 @@ input:focus, textarea:focus, .form-control:focus {
 
 /* Botão Secundário - Cinza (Voltar, Cancelar) */
 .btn-secondary {
-    background-color: #6c757d !important;  /* Cinza */
+    background-color: gold !important;  /* Cinza */
     color: white !important;
 }
 
